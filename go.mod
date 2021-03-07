@@ -1,3 +1,3 @@
-module github.com/rsds143/astra-devops-sdk-go
+module github.com/mastermanu2004/astra-devops-sdk-go
 
-go 1.13
+go 1.16
