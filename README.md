@@ -5,14 +5,27 @@
 [![Go Version](https://img.shields.io/github/go-mod/go-version/rsds143/astra-devops-sdk-go)](https://img.shields.io/github/go-mod/go-version/rsds143/astra-devops-sdk-go)
 [![Latest Version](https://img.shields.io/github/v/tag/rsds143/astra-devops-sdk-go)](https://github.com/rsds143/astra-devops-sdk-go/tags)
 [![Go Reference](https://pkg.go.dev/badge/github.com/rsds143/astra-devops-sdk-go.svg)](https://pkg.go.dev/github.com/rsds143/astra-devops-sdk-go)
+[![Coverage Status](https://coveralls.io/repos/github/rsds143/astra-devops-sdk-go/badge.svg?branch=main)](https://coveralls.io/github/rsds143/astra-devops-sdk-go?branch=main)
 
 Go API bindings for the Astra DevOps API with zero external dependencies. Apache 2.0 License.
 
 ## How to use
 
-### V1 API
+### Login Token
 
-#### V1: Login
+```go
+
+import "github.com/rsds143/astra-devops-sdk-go/astraops"
+
+func main() {
+//using an auth token
+
+  verbose := true
+  client, err := astraopsv1.AuthenticateToken("AstraCS:scrambled:scrabmled", verbose)
+}
+```
+
+### Login Legacy Service Account
 
 ```go
 
@@ -30,7 +43,7 @@ func main() {
 }
 ```
 
-#### V1: Create Database
+#### Create Database
 
 Will block until creation
 
@@ -67,7 +80,8 @@ createDb := CreateDb{
 id, db, err := client.CreateDb(createDb)
 ```
 
-#### V1: Delete Database
+### Delete Database
+
 Will block until terminating status or terminated status is returned
 
 ```go
@@ -78,14 +92,14 @@ preparedStateOnly := false
 err := client.Terminate(id, preparedStateOnly)
 ```
 
-#### V1: List All Databases With A Limit Of 10
+### List All Databases With A Limit Of 10
 
 ```go
 dbs, err := client.ListDb("", "", "", 10)
 //returns an array of DataBases
 ```
 
-#### V1: Get Database by ID
+### Get Database by ID
 
 ```go
 db, err := client.FindDb(id)
@@ -110,7 +124,7 @@ db, err := client.FindDb(id)
 */
 ```
 
-#### V1: Get Secure Connect Bundle by ID
+### Get Secure Connect Bundle by ID
 
 ```go
 secureBundle, err := client.GetSecureBundle(id)
@@ -124,7 +138,7 @@ type SecureBundle struct {
 */
 ```
 
-#### V1: Park legacy tier db (non serverless)
+### Park legacy tier db (non serverless)
 
 Will block until parking complete
 
@@ -132,7 +146,7 @@ Will block until parking complete
 err := client.Park(id)
 ```
 
-#### V1: Unpark legacy tier db (non serverless)
+### Unpark legacy tier db (non serverless)
 
 Will block until unparking complete, this can take very long
 
@@ -140,14 +154,14 @@ Will block until unparking complete, this can take very long
 err := client.UnPark(id)
 ```
 
-#### V1: Resize 
+### Resize 
 
 ```go
 var int32 capacityUnits = 5
 err := Resize(id, capacityUnits)
 ```
 
-#### V1: List all tiers available
+### List all tiers available
 
 ```go
 tiers, err := GetTierInfo()
